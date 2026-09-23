@@ -6,7 +6,7 @@
 ## Student number: helau2698 
 
 ## Description
-A fitness centre receives simulated measurements from wearable devices used during training sessions. This program organizes participants and their traning sessions. It validates the measurement window and compares measuremensts against the baseline of each participant. It will also classify session intensity, detect recovery and provide a readable report for each session.
+A fitness centre receives simulated measurements from wearable devices used during training sessions. This program organizes participants and their traning sessions. It validates the measurement window and compares measurements against the baseline of each participant. It will also classify session intensity, detect recovery and provide a readable report for each session.
 
 
 ## Class Designs 
@@ -35,7 +35,7 @@ Class Session:
 - Exposes usable/rejected observations and counts.
 - "from_observations" builds a Session from a list of observation dictionaries. 
 
-The functions for calculations, validation and presentation is represented in the Analysis.py file. This is seperated from the above classes. The file Analysis.py contains the functions: 
+The functions for calculations, validation and presentation is represented in the Analysis.py file. This is separated from the above classes. The file Analysis.py contains the functions: 
 - summarize_values
 - compare_baseline
 - detect_recovery
@@ -43,6 +43,8 @@ The functions for calculations, validation and presentation is represented in th
 - generate_session_summary
 - build_console_report. 
 
+The file structure has a folder named "option_a_fitness". This folder contains all of the provided files and data for the assignment.
+The files Participant.py, Observation.py, Session.py and Analysis.py were created by me in addition to the provided file names mentioned in the assignment.  
 
 ## Composition, Encapsulation, Inheritance and Overriding
 Composition:
@@ -53,7 +55,7 @@ Encapsulation:
 - Another encapsulation is that Session returns a copy of its observation list. This ensures that the real observation list cannot be changed. The way to add data is through "add_observation()".
 
 Inheritance: 
-- The class Observation inherits from the abstract class SensorReading. This means that the parent (SensorReading) defines what each and every sensor reading needs, while the child class (Observation) defines what a fitness observation should measure and how to valide it. This relationship ensures that the parent class gives a minimum level of values while a child class can be more specific. The use of SensorReading as parent and Observation as child classes is because of the "is-a" relationship. An Observation is a type of SensorReading. This choice helps me avoid duplicating common behaviour observed.
+- The class Observation inherits from the abstract class SensorReading. This means that the parent (SensorReading) defines what each and every sensor reading needs, while the child class (Observation) defines what a fitness observation should measure and how to valide it. This relationship ensures that the parent class gives a minimum level of values while a child class can be more specific. The use of SensorReading as parent and Observation as child classes is because of the "is-a" relationship. An Observation is a type of SensorReading. This choice helps me avoid duplicating common behavior observed.
 
 Overriding: 
 - The class Observation implements the abstract validate() method, which is defined by the class SensorReading. It is not instantiated in SensorReading, which means that every subclass of SensorReading need to define and valide its own rules insted of inheriting. 
@@ -66,14 +68,14 @@ Usability:
 Additionally, a valid observation is only usable if the signal_quality is >= 0.5. This can mean that a previous valid reading can be excluded from analysis. This is to ensure that a valid observation also has signal_quality. 
 
 Recovery detection: 
-There is also a "detect_recovery" in the file Analysis.py that indicates that every usable observation also needs to have 4 usable observations. The usable observations is also divided into two by timestamp. This divide is also constrained that the second heart_rate is more than 3 bpm lower than the first half, and that the second-falf of activity_level is more that 0.05 lower in the first half. The reason for the numbers 3 bpm and 0.05 was to ensure that small measurement noise was elimiated.
+There is also a "detect_recovery" in the file Analysis.py that indicates that every usable observation also needs to have 4 usable observations. The usable observations is also divided into two by timestamp. This divide is also constrained that the second heart_rate is more than 3 bpm lower than the first half, and that the second-half of activity_level is more that 0.05 lower in the first half. The reason for the numbers 3 bpm and 0.05 was to ensure that small measurement noise was eliminated.
 
 Classify: 
-I used the classification of "resting", "moderate activity" and "high activity". This classification is conditioned (can be seen in Analysis.py for specific numbers). The heart rate is always compared to the participants own baseline rather than a fixed number. This is due to heart rates being different accross participants. 
+I used the classification of "resting", "moderate activity" and "high activity". This classification is conditioned (can be seen in Analysis.py for specific numbers). The heart rate is always compared to the participants own baseline rather than a fixed number. This is due to heart rates being different across participants. 
 
-Additionaly is also "recovering" and "insufficient data" part of the classification. The recovering is checked and will override everything else. Insufficient data is checked first and also overrides if there is not enough usable observations.
+Additionally is also "recovering" and "insufficient data" part of the classification. The recovering is checked and will override everything else. Insufficient data is checked first and also overrides if there is not enough usable observations.
 
-## Exact installation and running intructions
+## Exact installation and running instructions
 
 git clone https://github.com/HeddaFL/ACIT4420-Assignment1.git
 
@@ -84,20 +86,20 @@ python main.py
 
 
 ## Testing adn running
-The file tests.py uses Python's built-in unittest. The reason of tests.py is to verify that the program is behaving appropriatly and as expected. The tests.py checks multiple things, such as:
+The file tests.py uses Python's built-in unittest. The reason of tests.py is to verify that the program is behaving appropriately and as expected. The tests.py checks multiple things, such as:
 - only valid observations are used.
 - missing values are rejected.
 - impossible values are rejected. 
-- an observation iwth low signal_quality is excluded from analysis. 
+- an observation with low signal_quality is excluded from analysis. 
 These tests are created specifically without generated data to ensure i could test my program with specific invalid situations. 
 
-The test has five scenarioes (same as before) and the "generate_session_summary()" to return a dictionary. Now this is using data generated by data_generator.py. This is to ensure that the program works correctly.  
+The test has five scenarios (same as before) and the "generate_session_summary()" to return a dictionary. Now this is using data generated by data_generator.py. This is to ensure that the program works correctly.  
 
 To test the automated tests, use the following command: 
 python -m unittest tests.py -v
 
 ## Example output
-The following output is copypasted from the terminal after i used the command "python main.py". 
+The following output is copy pasted from the terminal after i used the command "python main.py". 
 
 ```
 Scenario: resting 
@@ -177,6 +179,6 @@ The "poor_quality" scenario is rejected in every observation. This is due to a i
 
 Another limitation is that i  divided the recovery detection so it only compares the first and second half. Meaning that a session with a short dip in the middle could be misclassified. 
 
-When running the proram, the report in the console is not saved into a file. This means that the results only exist in the console. 
+When running the program, the report in the console is not saved into a file. This means that the results only exist in the console. 
 
 The program only supports five scenarios. It has not been tested against scenarios outside of what "data_generator.py" produces. 
