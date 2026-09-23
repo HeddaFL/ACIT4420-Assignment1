@@ -1,9 +1,3 @@
-import os
-import sys
-
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "option_a_fitness"))
-
-
 from option_a_fitness.data_generator import generate_fitness_data
 from Participant import Participant
 from Session import Session
