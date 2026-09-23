@@ -75,6 +75,8 @@ I used the classification of "resting", "moderate activity" and "high activity".
 
 Additionally is also "recovering" and "insufficient data" part of the classification. The recovering is checked and will override everything else. Insufficient data is checked first and also overrides if there is not enough usable observations.
 
+I also used fixed numbers (0.25/12 and 0.68/45) based on inspecting the data_generator.py file. The numbers reflect the differnet halfs to ensure that the classifications can be detected. The 0.68 sits in lower edge of high_activity and 0.25 is between resting and moderate. 12 and 45 were chosen because they also sit between resting and moderate to moderate/high. The numbers were chosen to reflect the ranges of an observation. 
+
 ## Exact installation and running instructions
 
 git clone https://github.com/HeddaFL/ACIT4420-Assignment1.git
@@ -83,7 +85,7 @@ cd ACIT4420-Assignment1
 
 python main.py
 
-## Testing and running
+## Testing adn running
 The file tests.py uses Python's built-in unittest. The reason of tests.py is to verify that the program is behaving appropriately and as expected. The tests.py checks multiple things, such as:
 - only valid observations are used.
 - missing values are rejected.
