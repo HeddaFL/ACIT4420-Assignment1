@@ -1,2 +1,0 @@
-The project only uses the Python standard library.
-No additional libraries have been used. 
