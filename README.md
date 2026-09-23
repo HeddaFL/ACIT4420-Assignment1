@@ -99,7 +99,7 @@ python -m unittest tests.py -v
 ## Example output
 The following output is copypasted from the terminal after i used the command "python main.py". 
 
-'''text
+"""text
 Scenario: resting 
 ============================================================
 Session report: P001-resting (participant P001)
@@ -168,6 +168,7 @@ Heart rate (bpm)  : no usable data
 Skin response     : no usable data
 Temperature (C)   : no usable data
 Activity level    : no usable data
+"""
 
 ## Known limitations
 The choice to using 3 bpm and 0.05 in recovery as a threshold is due to my own inspection of the generated data provided. A different threshold might shift some sessions into different classifications. 
