@@ -75,9 +75,9 @@ Additionaly is also "recovering" and "insufficient data" part of the classificat
 
 ## Exact installation and running intructions
 
-git clone https://github.com/HeddaFL/ACIT4420---Assignment1.git
+git clone https://github.com/HeddaFL/ACIT4420-Assignment1.git
 
-cd ACIT4420---Assignment1
+cd ACIT4420-Assignment1
 
 python main.py
 
