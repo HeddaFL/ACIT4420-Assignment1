@@ -83,9 +83,7 @@ cd ACIT4420-Assignment1
 
 python main.py
 
-
-
-## Testing adn running
+## Testing and running
 The file tests.py uses Python's built-in unittest. The reason of tests.py is to verify that the program is behaving appropriately and as expected. The tests.py checks multiple things, such as:
 - only valid observations are used.
 - missing values are rejected.
