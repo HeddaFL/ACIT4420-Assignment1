@@ -1,9 +1,9 @@
 import statistics # pythonlib
 
-def summarize_values(values):
+def summarize_values(values): 
     clean = [v for v in values if v is not None]
     if not clean:
-        return {"average": None, "min": None, "max": None, "count": 0}
+        return {"average": None, "min": None, "max": None, "count": 0} 
     return {
         "average": round(statistics.mean(clean), 2),
         "min": min(clean),
@@ -13,12 +13,12 @@ def summarize_values(values):
 
 def compare_baseline(value, baseline):
     if value is None or baseline is None:
-        return None
+        return None 
     return round(value - baseline, 2)
 
 def detect_recovery(session):
     usable = sorted(session.usable_observations, key=lambda obs: obs.timestamp) # lambda sort it in order of timestamp
-    if len(usable) < 4:
+    if len(usable) < 4: # at least four usable observations to compare.
         return False, "not enough usable observations to evaluate recovery"
     
     middle = len(usable) // 2
@@ -29,7 +29,8 @@ def detect_recovery(session):
     activity_first = statistics.mean([obs.activity_level for obs in first_half])
     activity_second = statistics.mean([obs.activity_level for obs in second_half])
 
-    heart_rate_declining = hr_second < hr_first - 3
+    # filter out noise measures.
+    heart_rate_declining = hr_second < hr_first - 3 
     activity_declining = activity_second < activity_first - 0.05 
 
     if heart_rate_declining and activity_declining:
@@ -52,13 +53,14 @@ def classify_intensity(session):
     avg_activity = statistics.mean(obs.activity_level for obs in usable)
     hr_deviation = compare_baseline(avg_hr, session.participant.baseline_heart_rate)
 
+    # thresholds below (0.25/12, 0.68/45) are explicitly fixed based on inspecting the data_generator.py
     if avg_activity < 0.25 and hr_deviation is not None and hr_deviation < 12:
         return "resting"
     if avg_activity < 0.68 and hr_deviation is not None and hr_deviation < 45:
         return "moderate activity"
     return "high activity"
 
-def generate_session_summary(session):
+def generate_session_summary(session): 
     usable = session.usable_observations
     participant = session.participant
 
@@ -89,7 +91,7 @@ def generate_session_summary(session):
 
 def build_console_report(report): # make the report format, how it looks in the console.
     lines = []
-    lines.append("=" * 60)
+    lines.append("=" * 60) 
     lines.append(f"Session report: {report['session_id']} (participant {report['participant_id']})")
     lines.append("=" * 60)
     lines.append(f"Observations used: {report['usable_observations']}/"
@@ -100,7 +102,7 @@ def build_console_report(report): # make the report format, how it looks in the 
                  f"- {report['recovery_explanation']}")
     lines.append("-" * 60)
 
-    for label, key in (
+    for label, key in ( # make it pairs to avoid repeating.
         ("Heart rate", "heart_rate"),
         ("Skin response", "skin_response"),
         ("Temperature", "temperature"),
