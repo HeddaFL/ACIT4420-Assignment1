@@ -101,9 +101,9 @@ def build_console_report(report): # make the report format, how it looks in the 
     lines.append("-" * 60)
 
     for label, key in (
-        ("Heart rate (bpm)", "heart_rate"),
+        ("Heart rate", "heart_rate"),
         ("Skin response", "skin_response"),
-        ("Temperature (C)", "temperature"),
+        ("Temperature", "temperature"),
         ("Activity level", "activity_level"),
     ):
         summary = report[key]
